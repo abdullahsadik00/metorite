@@ -5,3 +5,6 @@
 .hero__section{
     background-color: #22252D;
 }
+.hero__section__text__count .imgs{
+    width: 40px;
+}
