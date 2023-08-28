@@ -16,7 +16,6 @@ console.log("hello");
 //      check the type of data
 // 4 => if we found the result then show all the data in table format and if no result found with perticular query we show message "no result found"
 
-
 // let dateSTr = "1880-01-01T00:00:00.000";
 // let date = new Date(dateSTr);
 // console.log(date.getDate());
@@ -26,11 +25,13 @@ console.log("hello");
 // console.log(date.getMinutes());
 
 function fetchData() {
-  fetch("https://data.nasa.gov/resource/gh4g-9sfh.json")
-    .then((response) => response.json())
-    .then((res) => {
-      localStorage.setItem("response", JSON.stringify(res));
-    });
+  if(localStorage.getItem("response") == null){    
+    fetch("https://data.nasa.gov/resource/gh4g-9sfh.json")
+      .then((response) => response.json())
+      .then((res) => {
+        localStorage.setItem("response", JSON.stringify(res));
+      });
+  }
 }
 
 // let input = document.getElementById("inputSearchBar");
@@ -50,7 +51,31 @@ function fetchData() {
 //     }
 //   }
 // });
-
+// console.log();
+let data = JSON.parse(localStorage.getItem("response"));
+const createRows = (data) => {
+  let tbody = document.getElementById("tbody");
+  for (let i = 0; i < data.length; i++) {
+    let row = `
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+    <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${
+      data[i].name
+    }</td>
+    <td class="px-6 py-4">${i + 1}</td>
+    <td class="px-6 py-4">Composition Type</td>
+    <td class="px-6 py-4">${data[i].mass} </td>
+    <td class="px-6 py-4">${data[i].year}</td>
+    <td class="px-6 py-4">${data[i].recclass}</td>
+    <td class="px-6 py-4">50.775</td>
+    <td class="px-6 py-4">6.08333</td>
+    <td class="px-6 py-4">12</td>
+    <td class="px-6 py-4">USA</td>
+  </tr>
+    `;
+    tbody.innerHTML += row;
+  }
+};
+createRows(data)
 let input = document.getElementById("inputSearchBar");
 input.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -60,38 +85,37 @@ input.addEventListener("submit", (e) => {
 
   if (data != undefined) {
     data = JSON.parse(data); // Parse the stored data
-    console.log(data.length)
+    console.log(data.length);
 
-for(const item of data){
-  for(const key in item){
-    if(item.hasOwnProperty(key) && item[key] == inputBox.value){
-      
-      console.log(item)
-      console.log(item.year.format('D-MM-YYYY'))
+    for (const item of data) {
+      for (const key in item) {
+        if (item.hasOwnProperty(key) && item[key] == inputBox.value) {
+          console.log(item);
+          // console.log(item.year.format("D-MM-YYYY"));
+        }
+      }
     }
-  }
-}
     console.log(inputBox.value);
     const foundObject = data.find((item) => item.name === inputBox.value);
     if (foundObject) {
       console.log("Object found:", foundObject);
+      createRows(foundObject)
     } else {
       console.log("Object not found");
     }
   }
 });
 
-
 let tbody = document.querySelector("tbody");
 let pageUL = document.querySelector(".pagination");
 let paginationNumbers = document.querySelector(".pagination1");
 let perPage = document.querySelector("#itemPerPage");
-let preButton = document.getElementById("prev-button")
-let nextButton = document.getElementById("next-button")
-let tr = tbody.querySelectorAll("tr")
-console.log(tr.length)
-let pageLimit = 2;
-let pageCount = Math.ceil(tr.length / pageLimit)
+let preButton = document.getElementById("prev-button");
+let nextButton = document.getElementById("next-button");
+let tr = tbody.querySelectorAll("tr");
+console.log(tr.length);
+let pageLimit = 120;
+let pageCount = Math.ceil(tr.length / pageLimit);
 let currentPage = 3;
 // console.log(tbody);
 // console.log(pageUL);
@@ -100,61 +124,62 @@ let currentPage = 3;
 
 perPage.onchange = giveTrPerPage;
 
-function giveTrPerPage(){
-pageLimit = Number(this.value)
-  console.log(pageLimit)
+function giveTrPerPage() {
+  pageLimit = Number(this.value);
+  console.log(pageLimit);
 }
 
-const enalbeButton = (button) =>{
-  button.classList.remove("disabled:opacity-50")
-  button.removeAttribute("disabled")
-}
+const enalbeButton = (button) => {
+  button.classList.remove("disabled:opacity-50");
+  button.removeAttribute("disabled");
+};
 const disableButton = (button) => {
-  button.classList.add("disabled:opacity-50")
-  button.setAttribute("disabled",true)
-}
+  button.classList.add("disabled:opacity-50");
+  button.setAttribute("disabled", true);
+};
 
 const handlePageButton = () => {
-  if(currentPage === 1){
-    disableButton(preButton)
-  }else{
-    enalbeButton(preButton)
+  if (currentPage === 1) {
+    disableButton(preButton);
+  } else {
+    enalbeButton(preButton);
   }
 
-  console.log(pageCount)
-  if(pageCount === currentPage){
-    disableButton(nextButton)
-  }else{
-    enalbeButton(nextButton)
+  console.log(pageCount);
+  if (pageCount === currentPage) {
+    disableButton(nextButton);
+  } else {
+    enalbeButton(nextButton);
   }
-}
+};
 // handlePageButton()
 const handleActivePageNumber = () => {
   document.querySelectorAll("pagination").forEach((button) => {
-    button.classList.remove("active")
+    button.classList.remove("active");
     const pageIndex = Number(button.getAttribute("page-index"));
-    if(pageIndex == currentPage){
-      button.classList.add("active")
+    if (pageIndex == currentPage) {
+      button.classList.add("active");
     }
-  })
-}
+  });
+};
 
 const appendPageNumber = (index) => {
-  const pageNumber = document.createElement("button")
-  pageNumber.className = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
+  const pageNumber = document.createElement("button");
+  pageNumber.className =
+    "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
   pageNumber.innerHTML = index;
-  pageNumber.setAttribute("page-index", index)
-  pageNumber.setAttribute("aria-label", "Page " + index)
+  pageNumber.setAttribute("page-index", index);
+  pageNumber.setAttribute("aria-label", "Page " + index);
 
-  pageUL.appendChild(pageNumber)
-}
+  pageUL.appendChild(pageNumber);
+};
 
 const getPaginationNumber = () => {
-  for(let i = 1 ; i <= pageCount ; i++) {
-    appendPageNumber(i)
+  for (let i = 1; i <= pageCount; i++) {
+    appendPageNumber(i);
   }
-  console.log(pageCount)
-}
+  console.log(pageCount);
+};
 
 const setCurrentPage = (pageNum) => {
   currentPage = pageNum;
@@ -162,33 +187,33 @@ const setCurrentPage = (pageNum) => {
   handlePageButton();
 
   const prevRange = (pageNum - 1) * pageLimit;
-  const currRange = (pageNum) * pageLimit;
+  const currRange = pageNum * pageLimit;
 
-  tr.forEach((item,index) => {
+  tr.forEach((item, index) => {
     item.classList.add("hidden");
-    if(index < currRange && index >= prevRange){
-      item.classList.remove("hidden")
+    if (index < currRange && index >= prevRange) {
+      item.classList.remove("hidden");
     }
-  })
-}
+  });
+};
 
-window.addEventListener("load",()=>{
-  getPaginationNumber()
-  setCurrentPage(1)
+window.addEventListener("load", () => {
+  getPaginationNumber();
+  setCurrentPage(1);
 
-  preButton.addEventListener("click",()=>{
-    setCurrentPage(currentPage - 1)
-  })
-  nextButton.addEventListener("click",()=>{
-    setCurrentPage(currentPage + 1)
-  })
+  preButton.addEventListener("click", () => {
+    setCurrentPage(currentPage - 1);
+  });
+  nextButton.addEventListener("click", () => {
+    setCurrentPage(currentPage + 1);
+  });
   document.querySelectorAll(".pagination").forEach((button) => {
     const pageIndex = Number(button.getAttribute("page-index"));
 
-                if (pageIndex) {
-                    button.addEventListener("click", () => {
-                        setCurrentPage(pageIndex);
-                    });
-                }
-  } )
-})
+    if (pageIndex) {
+      button.addEventListener("click", () => {
+        setCurrentPage(pageIndex);
+      });
+    }
+  });
+});
