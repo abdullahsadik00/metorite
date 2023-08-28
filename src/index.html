@@ -1,211 +1,194 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Fireball</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Fireball</title>
 </head>
 
 <body onload="fetchData()">
 
 
-    <nav class="  navbar">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="#" class="flex items-center flex align-middle ">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">C</span>
-                <img src="./assets/logo.png" class="h-8 px-1" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MET</span>
-            </a>
+  <nav class="  navbar">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="#" class="flex items-center flex align-middle ">
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">C</span>
+        <img src="./assets/logo.png" class="h-8 px-1" alt="Flowbite Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MET</span>
+      </a>
 
-            <a href="#"
-                class="text-white bg-orange-600 py-1 px-6 rounded bg-gradient-to-r from-orange-600 to-orange-500">Get
-                Started</a>
-        </div>
-    </nav>
+      <a href="#" class="text-white bg-orange-600 py-1 px-6 rounded bg-gradient-to-r from-orange-600 to-orange-500">Get
+        Started</a>
+    </div>
+  </nav>
 
-    <main class="hero__section grid grid-cols-2 gap-4 items-center	">
-        <div class="hero__section__img">
-            <div class="img">
-                <img src="./assets/hero img.png" alt="">
-            </div>
-        </div>
-        <div class="hero__section__text ">
-            <h2 class="text-6xl	text-white font-semibold
+  <main class="hero__section grid grid-cols-2 gap-4 items-center	">
+    <div class="hero__section__img">
+      <div class="img">
+        <img src="./assets/hero img.png" alt="">
+      </div>
+    </div>
+    <div class="hero__section__text ">
+      <h2 class="text-6xl	text-white font-semibold
             ">Get The Experience Of Exploring The Universe </h2>
-            <p class="text-white py-4">Learn more about galaxy world</p>
+      <p class="text-white py-4">Learn more about galaxy world</p>
 
-            <a href="#"
-                class="text-white bg-orange-600 py-2  px-6 rounded bg-gradient-to-r from-orange-600 to-orange-500">Get
-                Started</a>
-            <div class="hero__section__text__count flex items-center	 my-5">
-                <div class="flex ">
-                    <div class="imgs mx-2">
-                        <img src="./assets/icon.png" alt="">
-                    </div>
-                    <div class="items-center flex flex-col	">
-                        <h3 class="	text-slate-100 text-lg	font-semibold">1000+</h3>
-                        <p class="text-neutral-400 	">Comet Data</p>
-                    </div>
-                </div>
-                <div class="seperator mx-6">
-                    <span class="text-neutral-200 font-medium ">|</span>
-                </div>
-                <div class="flex ">
-                    <div class="imgs ">
-                        <img src="./assets/daily_user.png" alt="">
-                    </div>
-                    <div class="items-center flex flex-col	">
-                        <h3 class="	text-slate-100 text-lg	font-semibold">100+</h3>
-                        <p class="text-neutral-400 	">Daily User</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <section class="flex justify-center	search py-6">
-        <div class="relative overflow-x-auto ">
-
-          <!-- top search -->
-          <div class="searchHeader flex justify-between	my-4">
-            <div class="items-controller flex">
-              <h5 class="text-white " >Show</h5>
-              <select name="" id="itemPerPage" class="bg-red-100 p-2 mx-4 rounded">
-                <option value="4">4</option>
-                <option value="6" selected>6</option>
-                <option value="8">8</option>
-                <option value="10">10</option>
-              </select>
-              <h5 class="text-white  " >Per Page</h5>
-            </div>
-            <div class="search">
-              <h5>Search</h5>
-              <input type="text" name="" id="search" placeholder="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
-            </div>
-    
+      <a href="#" class="text-white bg-orange-600 py-2  px-6 rounded bg-gradient-to-r from-orange-600 to-orange-500">Get
+        Started</a>
+      <div class="hero__section__text__count flex items-center	 my-5">
+        <div class="flex ">
+          <div class="imgs mx-2">
+            <img src="./assets/icon.png" alt="">
           </div>
-
-<!-- top search end -->
-
-        <table class=" text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" class="px-6 py-3">Name</th>
-                <th scope="col" class="px-6 py-3">id</th>
-                <th scope="col" class="px-6 py-3">Composition Type</th>
-                <th  scope="col" class="px-6 py-3">Mass </th>
-                <th scope="col" class="px-6 py-3">Year</th>
-                <th scope="col" class="px-6 py-3">Rec Class</th>
-                <th scope="col" class="px-6 py-3">Latitude</th>
-                <th scope="col" class="px-6 py-3">Longitude</th>
-                <th scope="col" class="px-6 py-3">Total Strike</th>
-                <th scope="col" class="px-6 py-3">Country</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td ="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
-                <td class="px-6 py-4">1</td>
-                <td class="px-6 py-4">Composition Type</td>
-                <td class="px-6 py-4">21 </td>
-                <td class="px-6 py-4">2021</td>
-                <td class="px-6 py-4">L5</td>
-                <td class="px-6 py-4">50.775</td>
-                <td class="px-6 py-4">6.08333</td>
-                <td class="px-6 py-4">12</td>
-                <td class="px-6 py-4">USA</td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td ="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
-                <td class="px-6 py-4">2</td>
-                <td class="px-6 py-4">Composition Type</td>
-                <td class="px-6 py-4">21 </td>
-                <td class="px-6 py-4">2021</td>
-                <td class="px-6 py-4">L5</td>
-                <td class="px-6 py-4">50.775</td>
-                <td class="px-6 py-4">6.08333</td>
-                <td class="px-6 py-4">12</td>
-                <td class="px-6 py-4">USA</td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td ="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
-                <td class="px-6 py-4">3</td>
-                <td class="px-6 py-4">Composition Type</td>
-                <td class="px-6 py-4">21 </td>
-                <td class="px-6 py-4">2021</td>
-                <td class="px-6 py-4">L5</td>
-                <td class="px-6 py-4">50.775</td>
-                <td class="px-6 py-4">6.08333</td>
-                <td class="px-6 py-4">12</td>
-                <td class="px-6 py-4">USA</td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td ="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
-                <td class="px-6 py-4">4</td>
-                <td class="px-6 py-4">Composition Type</td>
-                <td class="px-6 py-4">21 </td>
-                <td class="px-6 py-4">2021</td>
-                <td class="px-6 py-4">L5</td>
-                <td class="px-6 py-4">50.775</td>
-                <td class="px-6 py-4">6.08333</td>
-                <td class="px-6 py-4">12</td>
-                <td class="px-6 py-4">USA</td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td ="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
-                <td class="px-6 py-4">5</td>
-                <td class="px-6 py-4">Composition Type</td>
-                <td class="px-6 py-4">21 </td>
-                <td class="px-6 py-4">2021</td>
-                <td class="px-6 py-4">L5</td>
-                <td class="px-6 py-4">50.775</td>
-                <td class="px-6 py-4">6.08333</td>
-                <td class="px-6 py-4">12</td>
-                <td class="px-6 py-4">USA</td>
-              </tr>
-
-            </tbody>
-          </table>  
-
-          <nav aria-label=" navigation w-full">
-
-            <div class="flex justify-center my-4">
-        <!--pagination  -->
-
-        <button id="prev-button" class=" flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</button>
-            <div class="inline-flex -space-x-px text-base h-10 pagination">
-              
-              
-              
-                <!-- <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</button>
-              
-              
-                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</button>
-              
-              
-                <button class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</button>
-              
-              
-                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</button>
-              
-              
-                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</button> -->
-              
-              
-                
-              </div>
-              <button  id="next-button" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</button>
+          <div class="items-center flex flex-col	">
+            <h3 class="	text-slate-100 text-lg	font-semibold">1000+</h3>
+            <p class="text-neutral-400 	">Comet Data</p>
+          </div>
         </div>
-          </nav>
-                  </div>
-    </section>
+        <div class="seperator mx-6">
+          <span class="text-neutral-200 font-medium ">|</span>
+        </div>
+        <div class="flex ">
+          <div class="imgs ">
+            <img src="./assets/daily_user.png" alt="">
+          </div>
+          <div class="items-center flex flex-col	">
+            <h3 class="	text-slate-100 text-lg	font-semibold">100+</h3>
+            <p class="text-neutral-400 	">Daily User</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="flex justify-center	search py-6">
+    <div class="relative overflow-x-auto ">
+
+      <!-- top search -->
+      <div class="searchHeader flex justify-between	my-4">
+        <div class="items-controller flex">
+          <h5 class="text-white ">Show</h5>
+          <select name="" id="itemPerPage" class="bg-red-100 p-2 mx-4 rounded">
+            <option value="4">4</option>
+            <option value="6" selected>6</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+          </select>
+          <h5 class="text-white  ">Per Page</h5>
+        </div>
+        <div class="search">
+          <h5>Search</h5>
+          <input type="text" name="" id="search" placeholder="search"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        </div>
+
+      </div>
+
+      <!-- top search end -->
+
+      <table class=" text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">id</th>
+            <th scope="col" class="px-6 py-3">Composition Type</th>
+            <th scope="col" class="px-6 py-3">Mass </th>
+            <th scope="col" class="px-6 py-3">Year</th>
+            <th scope="col" class="px-6 py-3">Rec Class</th>
+            <th scope="col" class="px-6 py-3">Latitude</th>
+            <th scope="col" class="px-6 py-3">Longitude</th>
+            <th scope="col" class="px-6 py-3">Total Strike</th>
+            <th scope="col" class="px-6 py-3">Country</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
+            <td class="px-6 py-4">1</td>
+            <td class="px-6 py-4">Composition Type</td>
+            <td class="px-6 py-4">21 </td>
+            <td class="px-6 py-4">2021</td>
+            <td class="px-6 py-4">L5</td>
+            <td class="px-6 py-4">50.775</td>
+            <td class="px-6 py-4">6.08333</td>
+            <td class="px-6 py-4">12</td>
+            <td class="px-6 py-4">USA</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
+            <td class="px-6 py-4">2</td>
+            <td class="px-6 py-4">Composition Type</td>
+            <td class="px-6 py-4">21 </td>
+            <td class="px-6 py-4">2021</td>
+            <td class="px-6 py-4">L5</td>
+            <td class="px-6 py-4">50.775</td>
+            <td class="px-6 py-4">6.08333</td>
+            <td class="px-6 py-4">12</td>
+            <td class="px-6 py-4">USA</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
+            <td class="px-6 py-4">3</td>
+            <td class="px-6 py-4">Composition Type</td>
+            <td class="px-6 py-4">21 </td>
+            <td class="px-6 py-4">2021</td>
+            <td class="px-6 py-4">L5</td>
+            <td class="px-6 py-4">50.775</td>
+            <td class="px-6 py-4">6.08333</td>
+            <td class="px-6 py-4">12</td>
+            <td class="px-6 py-4">USA</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
+            <td class="px-6 py-4">4</td>
+            <td class="px-6 py-4">Composition Type</td>
+            <td class="px-6 py-4">21 </td>
+            <td class="px-6 py-4">2021</td>
+            <td class="px-6 py-4">L5</td>
+            <td class="px-6 py-4">50.775</td>
+            <td class="px-6 py-4">6.08333</td>
+            <td class="px-6 py-4">12</td>
+            <td class="px-6 py-4">USA</td>
+          </tr>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Aachen</td>
+            <td class="px-6 py-4">5</td>
+            <td class="px-6 py-4">Composition Type</td>
+            <td class="px-6 py-4">21 </td>
+            <td class="px-6 py-4">2021</td>
+            <td class="px-6 py-4">L5</td>
+            <td class="px-6 py-4">50.775</td>
+            <td class="px-6 py-4">6.08333</td>
+            <td class="px-6 py-4">12</td>
+            <td class="px-6 py-4">USA</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <nav aria-label=" navigation w-full">
+
+        <div class="flex justify-center my-4">
+          <!--pagination  -->
+
+          <button id="prev-button"
+            class=" flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</button>
+          <div class="inline-flex -space-x-px text-base h-10 pagination">
+            <!-- <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</button>
+                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</button>
+                <button class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</button>
+                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</button>
+                <button class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</button> -->
+          </div>
+          <button id="next-button"
+            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</button>
+        </div>
+      </nav>
+    </div>
+  </section>
 
 
 
@@ -214,11 +197,11 @@
 
 
 
-    <form action="" id="inputSearchBar">
-        search <input type="text" name="search" id="inputBox">
-        <button type="submit">Submit</button>
-    </form>
-    <script src="./script/app.js"></script>
+  <form action="" id="inputSearchBar">
+    search <input type="text" name="search" id="inputBox">
+    <button type="submit">Submit</button>
+  </form>
+  <script src="./script/app.js"></script>
 </body>
 
 </html>
