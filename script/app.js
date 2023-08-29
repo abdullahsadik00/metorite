@@ -67,6 +67,7 @@ for(const item of data){
     if(item.hasOwnProperty(key) && item[key] == inputBox.value){
       
       console.log(item)
+      console.log(item.year.format('D-MM-YYYY'))
     }
   }
 }
@@ -82,120 +83,112 @@ for(const item of data){
 
 
 let tbody = document.querySelector("tbody");
-let pageUl = document.querySelector(".pagination");
-let itemShow = document.querySelector("#itemPerPage");
-let tr = tbody.querySelectorAll("tr");
-let emptyBox = [];
-let index = 1;
-let itemPerPage = 8;
+let pageUL = document.querySelector(".pagination");
+let paginationNumbers = document.querySelector(".pagination1");
+let perPage = document.querySelector("#itemPerPage");
+let preButton = document.getElementById("prev-button")
+let nextButton = document.getElementById("next-button")
+let tr = tbody.querySelectorAll("tr")
+console.log(tr.length)
+let pageLimit = 2;
+let pageCount = Math.ceil(tr.length / pageLimit)
+let currentPage = 3;
+// console.log(tbody);
+// console.log(pageUL);
+// console.log(itemShow);
+// console.log(tr);
 
-for(let i=0; i<tr.length; i++){ emptyBox.push(tr[i]);}
+perPage.onchange = giveTrPerPage;
 
-itemShow.onchange = giveTrPerPage;
 function giveTrPerPage(){
-  itemPerPage = Number(this.value);
-  console.log(itemPerPage);
-  displayPage(itemPerPage);
-  pageGenerator(itemPerPage);
-  getpagElement(itemPerPage);
+pageLimit = Number(this.value)
+  console.log(pageLimit)
 }
 
-function displayPage(limit){
-  tbody.innerHTML = '';
-  for(let i=0; i<limit; i++){
-    tbody.appendChild(emptyBox[i]);
-  }
-  const  pageNum = pageUl.querySelectorAll('.list');
-  pageNum.forEach(n => n.remove());
+const enalbeButton = (button) =>{
+  button.classList.remove("disabled:opacity-50")
+  button.removeAttribute("disabled")
 }
-displayPage(itemPerPage);
-function pageGenerator(getem){
-  const num_of_tr = emptyBox.length;
-  if(num_of_tr <= getem){
-    pageUl.style.display = 'none';
+const disableButton = (button) => {
+  button.classList.add("disabled:opacity-50")
+  button.setAttribute("disabled",true)
+}
+
+const handlePageButton = () => {
+  if(currentPage === 1){
+    disableButton(preButton)
   }else{
-    pageUl.style.display = 'flex';
-    const num_Of_Page = Math.ceil(num_of_tr/getem);
-    for(i=1; i<=num_Of_Page; i++){
-      const li = document.createElement('li'); li.className = 'list';
-      const a =document.createElement('a'); a.href = '#'; a.innerText = i;
-      a.setAttribute('data-page', i);
-      li.appendChild(a);
-      pageUl.insertBefore(li,pageUl.querySelector('.next'));
+    enalbeButton(preButton)
+  }
+
+  console.log(pageCount)
+  if(pageCount === currentPage){
+    disableButton(nextButton)
+  }else{
+    enalbeButton(nextButton)
+  }
+}
+// handlePageButton()
+const handleActivePageNumber = () => {
+  document.querySelectorAll("pagination").forEach((button) => {
+    button.classList.remove("active")
+    const pageIndex = Number(button.getAttribute("page-index"));
+    if(pageIndex == currentPage){
+      button.classList.add("active")
     }
-  }
+  })
 }
-pageGenerator(itemPerPage);
-let pageLink = pageUl.querySelectorAll("a");
-let lastPage =  pageLink.length - 2;
 
-function pageRunner(page, items, lastPage, active){
-  for(button of page){
-    button.onclick = e=>{
-      const page_num = e.target.getAttribute('data-page');
-      const page_mover = e.target.getAttribute('id');
-      if(page_num != null){
-        index = page_num;
+const appendPageNumber = (index) => {
+  const pageNumber = document.createElement("button")
+  pageNumber.className = "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
+  pageNumber.innerHTML = index;
+  pageNumber.setAttribute("page-index", index)
+  pageNumber.setAttribute("aria-label", "Page " + index)
 
-      }else{
-        if(page_mover === "next"){
-          index++;
-          if(index >= lastPage){
-            index = lastPage;
-          }
-        }else{
-          index--;
-          if(index <= 1){
-            index = 1;
-          }
-        }
-      }
-      pageMaker(index, items, active);
+  pageUL.appendChild(pageNumber)
+}
+
+const getPaginationNumber = () => {
+  for(let i = 1 ; i <= pageCount ; i++) {
+    appendPageNumber(i)
+  }
+  console.log(pageCount)
+}
+
+const setCurrentPage = (pageNum) => {
+  currentPage = pageNum;
+  handleActivePageNumber();
+  handlePageButton();
+
+  const prevRange = (pageNum - 1) * pageLimit;
+  const currRange = (pageNum) * pageLimit;
+
+  tr.forEach((item,index) => {
+    item.classList.add("hidden");
+    if(index < currRange && index >= prevRange){
+      item.classList.remove("hidden")
     }
-  }
-
-}
-var pageLi = pageUl.querySelectorAll('.list'); pageLi[0].classList.add("active");
-pageRunner(pageLink, itemPerPage, lastPage, pageLi);
-
-function getpagElement(val){
-  let pagelink = pageUl.querySelectorAll("a");
-  let lastpage =  pagelink.length - 2;
-  let pageli = pageUl.querySelectorAll('.list');
-  pageli[0].classList.add("active");
-  pageRunner(pagelink, val, lastpage, pageli);
-  
+  })
 }
 
+window.addEventListener("load",()=>{
+  getPaginationNumber()
+  setCurrentPage(1)
 
+  preButton.addEventListener("click",()=>{
+    setCurrentPage(currentPage - 1)
+  })
+  nextButton.addEventListener("click",()=>{
+    setCurrentPage(currentPage + 1)
+  })
+  document.querySelectorAll(".pagination").forEach((button) => {
+    const pageIndex = Number(button.getAttribute("page-index"));
 
-function pageMaker(index, item_per_page, activePage){
-  const start = item_per_page * index;
-  const end  = start + item_per_page;
-  const current_page =  emptyBox.slice((start - item_per_page), (end-item_per_page));
-  tbody.innerHTML = "";
-  for(let j=0; j<current_page.length; j++){
-    let item = current_page[j];					
-    tbody.appendChild(item);
-  }
-  Array.from(activePage).forEach((e)=>{e.classList.remove("active");});
-     activePage[index-1].classList.add("active");
-}
-
-
-
-
-
-// search content 
-var search = document.getElementById("search");
-search.onkeyup = e=>{
-  const text = e.target.value;
-  for(let i=0; i<tr.length; i++){
-    const matchText = tr[i].querySelectorAll("td")[2].innerText;
-    if(matchText.toLowerCase().indexOf(text.toLowerCase()) > -1){
-      tr[i].style.visibility = "visible";
-    }else{
-      tr[i].style.visibility= "collapse";
-    }
-  }
-}
+                if (pageIndex) {
+                    button.addEventListener("click", () => {
+                        setCurrentPage(pageIndex);
+                    });
+                }
+  } )
+})

@@ -32,3 +32,10 @@
 
 
 		
+		.pagination.active {
+            color: #fff;
+            background: #47d808;
+        }
+		.hidden {
+            display: none;
+        }
