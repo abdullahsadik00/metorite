@@ -1,3 +1,4 @@
+let data;
 console.log("hello");
 // Functionality
 //      Search Component
@@ -23,36 +24,26 @@ console.log("hello");
 // console.log(date.getMonth());
 // console.log(date.getFullYear());
 // console.log(date.getMinutes());
-
-function fetchData() {
-  if(localStorage.getItem("response") == null){    
-    fetch("https://data.nasa.gov/resource/gh4g-9sfh.json")
-      .then((response) => response.json())
-      .then((res) => {
-        localStorage.setItem("response", JSON.stringify(res));
-      });
+ 
+// function fetchData() {
+//   fetch("data.json")
+//       .then((response) => response.json())
+//       .then((res) => {
+//          data = res;
+//       });
+// }
+async function fetchData(){
+  try{
+    const response = await fetch("data.json")
+    data = await response.json()
+    console.log(data)
+  }catch (error){
+    console.log(`Error ${error}`)
   }
 }
 
-// let input = document.getElementById("inputSearchBar");
-// input.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   console.log("form submitted");
-//   let input = document.getElementById("inputBox");
-//   let data = localStorage.getItem("response");
+console.log(data)
 
-//   if (data != undefined) {
-//     console.log(input);
-//     const foundObject = data.find((item) => item.name === input.value);
-//     if (foundObject) {
-//       console.log("Object found:", foundObject);
-//     } else {
-//       console.log("Object not found");
-//     }
-//   }
-// });
-// console.log();
-let data = JSON.parse(localStorage.getItem("response"));
 const createRows = (data) => {
   let tbody = document.getElementById("tbody");
   for (let i = 0; i < data.length; i++) {
