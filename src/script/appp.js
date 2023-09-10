@@ -1,3 +1,4 @@
+"use strict";
 // map
 const displayMap = (mapData)=>{
   const map = L.map("map");
@@ -123,7 +124,9 @@ let tr = tbody.querySelectorAll("tr");
 let pageLimit = 120;
 let pageCount = 1;
 let currentPage = 3;
-
+ function myFunction(a){
+  alert(a)
+ }
 const createRows = (initial, last) => {
   let tbody = document.getElementById("tbody");
   const hasChildElements = tbody.hasChildNodes();
@@ -135,7 +138,7 @@ const createRows = (initial, last) => {
   for (let i = initial - 1; i < last; i++) {
     let row = `
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${
+    <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" onclick="myFunction('${data[i].name}')"> ${
       data[i].name
     }</td>
     <td class="px-6 py-4">${i + 1}</td>
@@ -245,10 +248,6 @@ input.addEventListener("submit", (e) => {
   console.log("form submitted");
   let inputBox = document.getElementById("inputBox");
 
-  if (data != undefined) {
-    data = JSON.parse(data);
-    console.log(data.length);
-
     for (const item of data) {
       for (const key in item) {
         if (item.hasOwnProperty(key) && item[key] == inputBox.value) {
@@ -264,7 +263,7 @@ input.addEventListener("submit", (e) => {
     } else {
       console.log("Object not found");
     }
-  }
+  
 });
 
 function fetchData() {
