@@ -1,20 +1,41 @@
-"use strict";
+let tbody = document.querySelector("tbody");
+let pageUL = document.querySelector(".pagination");
+let paginationNumbers = document.querySelector(".pagination1");
+let perPage = document.querySelector("#itemPerPage");
+let preButton = document.getElementById("prev-button");
+let nextButton = document.getElementById("next-button");
+let tr = tbody.querySelectorAll("tr");
+let pageLimit = 120;
+let pageCount = 1;
+let currentPage = 1;
+
 // map
-const displayMap = (mapData)=>{
-  const map = L.map("map");
+const map = L.map("map");
 map.setView([18.66, 74.71], 7);
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
-for (let i = 0; i < mapData.length; i++) {
-  const d = mapData[i];
-  L.marker([d.reclat, d.reclong], {
-    title: `${d.name}`,
+const displayMap = () => {
+  // const map = L.map("map");
+  // map.setView([18.66, 74.71], 7);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+  L.marker([18.66, 74.71], {
+    title: `india`,
   })
-    .bindPopup(
-` <span> Name</span>
+    .bindPopup(`india sadik 22 `)
+    .addTo(map);
+};
+
+const updateMap = (mapData) =>{
+  for (let i = 0; i < mapData.length; i++) {
+    const d = mapData[i];
+    L.marker([d.reclat, d.reclong], {
+      title: `${d.name}`,
+    })
+      .bindPopup(
+        ` <span> Name</span>
 <h2>${d.name}</h2>
 <span>Class</span>
 <h2>${d.recclass}</h2>
@@ -25,18 +46,13 @@ for (let i = 0; i < mapData.length; i++) {
 <span>Country</span>
 <h2>Yemen</h2>
 `
-    )
-    .addTo(map);
-}
-L.marker([18.66, 74.71], {
-  title: `india`,
-})
-  .bindPopup(`india sadik 22 `)
-  .addTo(map);
+      )
+      .addTo(map);
+  }
 
 }
-console.log(L);
 
+////////////////////////////////////////////////map end here///////////////////////////////////////////////////////////////
 // bar graph
 // Initialize the year histogram
 const yearHistogram = new Chart(document.getElementById("yearHistogram"), {
@@ -114,113 +130,86 @@ function calculateTotalStrikes(yearCounts) {
   return totalStrikes;
 }
 
-let tbody = document.querySelector("tbody");
-let pageUL = document.querySelector(".pagination");
-let paginationNumbers = document.querySelector(".pagination1");
-let perPage = document.querySelector("#itemPerPage");
-let preButton = document.getElementById("prev-button");
-let nextButton = document.getElementById("next-button");
-let tr = tbody.querySelectorAll("tr");
-let pageLimit = 120;
-let pageCount = 1;
-let currentPage = 3;
- function myFunction(a){
-  alert(a)
- }
-const createRows = (initial, last) => {
+
+// 
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const openModalBtn = document.querySelector(".btn-open");
+const closeModalBtn = document.querySelector(".btn-close");
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+// openModalBtn.addEventListener("click", openModal);
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+closeModalBtn.addEventListener("click", closeModal);
+
+function myFunction(a) {
+  console.log(originalData)
+  alert(a);
+  const filteredData = originalData.filter(item=>{
+    return item.recclass == a
+  })
+  console.log(filteredData)
+  updateChart(filteredData);
+  updateMap(filteredData)
+  // displayMap(filteredData);
+  openModal();
+}
+const createRows = (initial, last,dataToBeDisplay) => {
   let tbody = document.getElementById("tbody");
   const hasChildElements = tbody.hasChildNodes();
-
   if (hasChildElements) {
     tbody.innerHTML = "";
   }
-
   for (let i = initial - 1; i < last; i++) {
+    let date = new Date(dataToBeDisplay[i].year);
+    let year = date.getFullYear()
     let row = `
     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-    <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" onclick="myFunction('${data[i].name}')"> ${
-      data[i].name
-    }</td>
-    <td class="px-6 py-4">${i + 1}</td>
-    <td class="px-6 py-4">Composition Type</td>
-    <td class="px-6 py-4">${data[i].mass} </td>
-    <td class="px-6 py-4">${data[i].year}</td>
-    <td class="px-6 py-4">${data[i].recclass}</td>
+    <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" onclick="myFunction('${
+      dataToBeDisplay[i].name
+    }')"> ${dataToBeDisplay[i].name}</td>
+    <td class="px-6 py-4"
+    >${i + 1}</td>
+    <td class="px-6 py-4"
+    onclick="myFunction('${
+      dataToBeDisplay[i].mass
+    }')"
+    >${dataToBeDisplay[i].mass} </td>
+    <td class="px-6 py-4"
+    onclick="myFunction('${
+      year
+    }')"
+    >${year}</td>
+    <td class="px-6 py-4"
+    onclick="myFunction('${
+      dataToBeDisplay[i].recclass
+    }')"
+    >${dataToBeDisplay[i].recclass}</td>
     <td class="px-6 py-4">50.775</td>
     <td class="px-6 py-4">6.08333</td>
-    <td class="px-6 py-4">12</td>
-    <td class="px-6 py-4">USA</td>
+    
   </tr>
     `;
     tbody.innerHTML += row;
   }
 };
-perPage.onchange = giveTrPerPage;
-
-function giveTrPerPage() {
-  pageLimit = Number(this.value);
-  console.log(pageLimit);
-}
-
-const enalbeButton = (button) => {
-  button.classList.remove("disabled:opacity-50");
-  button.removeAttribute("disabled");
-};
-const disableButton = (button) => {
-  button.classList.add("disabled:opacity-50");
-  button.setAttribute("disabled", true);
-};
-
-const handlePageButton = () => {
-  if (currentPage === 1) {
-    disableButton(preButton);
-  } else {
-    enalbeButton(preButton);
-  }
-
-  console.log(pageCount);
-  if (pageCount === currentPage) {
-    disableButton(nextButton);
-  } else {
-    enalbeButton(nextButton);
-  }
-};
-
-const handleActivePageNumber = () => {
-  document.querySelectorAll("pagination").forEach((button) => {
-    button.classList.remove("active");
-    const pageIndex = Number(button.getAttribute("page-index"));
-    if (pageIndex == currentPage) {
-      button.classList.add("active");
-    }
-  });
-};
-
-const appendPageNumber = (index) => {
-  const pageNumber = document.createElement("button");
-  pageNumber.className =
-    "flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white";
-  pageNumber.innerHTML = index;
-  pageNumber.setAttribute("page-index", index);
-  pageNumber.setAttribute("aria-label", "Page " + index);
-
-  pageUL.appendChild(pageNumber);
-};
-
-const getPaginationNumber = () => {
-  for (let i = 1; i <= pageCount; i++) {
-    appendPageNumber(i);
-  }
-  console.log(pageCount);
-};
 const setCurrentPage = (pageNum, data) => {
   // new code
+  if(pageNum == 1 || pageNum < 1){
+    pageNum = 1
+  }
   document.getElementById("pageNumber").innerHTML = pageNum;
   if (pageNum == 1) {
     const initial = pageNum;
     const last = pageNum * 10;
     createRows(initial, last, data);
     console.log(initial, last);
+    console.log(pageNum)
   } else {
     const initial = (pageNum - 1) * 10 + 1;
     const last = pageNum * 10;
@@ -229,71 +218,90 @@ const setCurrentPage = (pageNum, data) => {
   }
   // end here
 
-  currentPage = pageNum;
-
-  const prevRange = (pageNum - 1) * pageLimit;
-  const currRange = pageNum * pageLimit;
-  //
-  tr.forEach((item, index) => {
-    item.classList.add("hidden");
-    if (index < currRange && index >= prevRange) {
-      item.classList.remove("hidden");
-    }
-  });
 };
 
-let input = document.getElementById("inputSearchBar");
-input.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("form submitted");
-  let inputBox = document.getElementById("inputBox");
-
-    for (const item of data) {
-      for (const key in item) {
-        if (item.hasOwnProperty(key) && item[key] == inputBox.value) {
-          console.log(item);
-        }
-      }
-    }
-    console.log(inputBox.value);
-    const foundObject = data.find((item) => item.name === inputBox.value);
-    if (foundObject) {
-      console.log("Object found:", foundObject);
-      createRows(foundObject);
-    } else {
-      console.log("Object not found");
-    }
-  
-});
 
 function fetchData() {
   return fetch("data.json")
     .then((response) => response.json())
     .then((res) => {
-      data = res;
-      return data;
+      // data = res;
+      return res;
     });
 }
-function Example() {
-  console.log("example");
-}
+
+
+
+
+let input = document.getElementById("inputSearchBar");
+let originalData = []; // Make a copy of the original data
+
+input.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let inputBox = document.getElementById("inputBox");
+  const searchValue = inputBox.value.trim().toLowerCase();
+
+  if (searchValue) {
+    const filteredData = originalData.filter((item) =>
+      Object.values(item).some((value) =>
+        value.toString().toLowerCase().includes(searchValue)
+      )
+    );
+    if (filteredData.length > 0) {
+      console.log("Objects found:", filteredData);
+      setCurrentPage(1,filteredData)
+      // createRows(filteredData);
+    } else {
+      console.log("No matching objects found");
+      tbody.innerHTML = "<tr><td colspan='10'>No matching objects found</td></tr>";
+    }
+  } else {
+    console.log("Displaying all data");
+    console.log(originalData);
+    setCurrentPage(1,originalData)
+
+    // createRows(originalData); // Display the original data
+  }
+  inputBox.value = ""; // Clear the search input
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fetchData()
   .then((fetchedData) => {
-    console.log(fetchedData);
-    setCurrentPage(1, fetchData);
+    originalData = [...fetchedData]
+    console.log(originalData);
+    setCurrentPage(1, originalData);
     preButton.addEventListener("click", () => {
       console.log("previous button has beenn clicked");
-      setCurrentPage(currentPage - 1, fetchData);
+      currentPage--;
+      if(currentPage !== 1)
+      setCurrentPage(currentPage - 1, originalData);
     });
     nextButton.addEventListener("click", () => {
       let tbody = document.getElementById("tbody");
       tbody.innerHTML += "";
-
-      setCurrentPage(currentPage + 1, fetchData);
+currentPage++;
+      setCurrentPage(currentPage + 1, originalData);
       console.log("next button has beenn clicked");
     });
     updateChart(fetchedData);
-    displayMap(fetchedData)
+    displayMap();
+    // updateMap(fetchedData)
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
